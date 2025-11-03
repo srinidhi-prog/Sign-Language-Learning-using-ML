@@ -1,0 +1,7 @@
+The file models/isl_landmark_model.h5 is a binary file that contains the trained model for predicting Indian Sign Language gestures. Since this file is not meant to be manually created or edited, it should be copied from your existing model file located at C:\Users\Thilak\Desktop\Projects\Sign-language\4-OWN\isl_landmark_model.h5 to the specified path in your project structure.
+
+Please ensure that you copy the file directly to the models directory of your project:
+
+isl-learning-web-app/models/isl_landmark_model.h5
+
+This file will not contain any code or text, as it is a pre-trained model file.

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ISL Learning Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>About the ISL Learning Web Application</h1>
+        <p>This application is designed to help users learn Indian Sign Language (ISL) through interactive gestures and real-time feedback.</p>
+        <h2>Purpose</h2>
+        <p>The primary goal of this application is to provide a user-friendly interface for learning ISL, enabling users to practice and improve their signing skills.</p>
+        <h2>How to Use</h2>
+        <ol>
+            <li>Access the main page to start the webcam feed.</li>
+            <li>Follow the target letter displayed on the screen.</li>
+            <li>Make the corresponding sign using your hands.</li>
+            <li>Receive immediate feedback on your performance, including your score.</li>
+        </ol>
+        <h2>Technologies Used</h2>
+        <ul>
+            <li>Flask - for the web framework</li>
+            <li>TensorFlow - for machine learning model</li>
+            <li>OpenCV - for webcam access and image processing</li>
+            <li>MediaPipe - for hand tracking</li>
+        </ul>
+        <h2>Contributors</h2>
+        <p>This project is developed by Thilak and aims to promote the learning of Indian Sign Language.</p>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+
+    {% extends "base.html" %}
+
+    {% block title %}About ISL Learning Interface{% endblock %}
+
+    {% block content %}
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h2>About Indian Sign Language Learning Interface</h2>
+        </div>
+        <div class="card-body">
+            <p class="lead">
+                This application helps you learn Indian Sign Language through an interactive interface using computer vision technology.
+            </p>
+            
+            <h3>How It Works</h3>
+            <p>
+                The application uses your webcam to detect hand positions and gestures. Using machine learning models
+                trained on Indian Sign Language, it can recognize the signs you make and provide instant feedback.
+            </p>
+            
+            <h3>Instructions</h3>
+            <ol>
+                <li>Position yourself in front of the camera with good lighting</li>
+                <li>Make the sign for the target letter shown</li>
+                <li>Hold the sign steady for the system to recognize it</li>
+                <li>Get feedback on your sign accuracy</li>
+                <li>Practice regularly to improve your ISL skills</li>
+            </ol>
+            
+            <h3>Supported Signs</h3>
+            <p>
+                This application currently supports:
+            </p>
+            <ul>
+                <li>Numbers 1-9</li>
+                <li>Alphabet A-Z</li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+# The label_encoder.pkl file is a binary file that contains the serialized label encoder object. 
+# It cannot be generated as plain text. 
+# You should create this file by training a label encoder on your dataset and saving it using joblib or pickle.
+
+# Example code to create label_encoder.pkl:
+# from sklearn.preprocessing import LabelEncoder
+# import joblib
+
+# TARGET_CLASSES = list("123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+# label_encoder = LabelEncoder()
+# label_encoder.fit(TARGET_CLASSES)
+# joblib.dump(label_encoder, 'C:/Users/Thilak/Desktop/Projects/Sign-language/4-OWN/label_encoder.pkl') 
+
+# This file is intentionally left blank.

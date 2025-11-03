@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISL Learning Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Indian Sign Language Learning</h1>
+        <div class="webcam-container">
+            <video id="webcam" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
+        <div class="info">
+            <h2>Target Letter: <span id="target-letter">{{ target_letter }}</span></h2>
+            <h2>Your Sign: <span id="user-sign">{{ user_sign }}</span></h2>
+            <h2>Score: <span id="score">{{ score }}</span></h2>
+            <h2 id="result-text">{{ result_text }}</h2>
+        </div>
+        <button id="start-button">Start</button>
+        <button id="stop-button">Stop</button>
+    </div>
+    <script src="{{ url_for('static', filename='js/webcam.js') }}"></script>
+    
+    {% extends "base.html" %}
+
+    {% block title %}ISL Learning Interface{% endblock %}
+
+    {% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3>Camera Feed</h3>
+                </div>
+                <div class="card-body text-center p-0">
+                    <img src="{{ url_for('main.video_feed') }}" class="img-fluid" alt="Video stream">
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3>Game Status</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h4>Target Letter</h4>
+                        <div class="target-display" id="targetLetter"></div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Your Sign</h4>
+                        <div id="prediction">No Hand</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Score</h4>
+                        <div id="score">0</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Result</h4>
+                        <div id="result"></div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Time Remaining</h4>
+                        <div class="progress">
+                            <div id="timeProgress" class="progress-bar" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <span id="timeRemaining">3</span> seconds
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h3>Instructions</h3>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li>Make the sign for the target letter shown</li>
+                        <li>Hold the sign steady for the system to recognize it</li>
+                        <li>Score a point for each correct sign</li>
+                        <li>Lose a point for incorrect signs</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update game state every 500ms
+        setInterval(updateGameState, 500);
+        
+        function updateGameState() {
+            fetch('/api/game_state')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('targetLetter').textContent = data.target_letter;
+                    document.getElementById('prediction').textContent = data.prediction;
+                    document.getElementById('score').textContent = data.score;
+                    document.getElementById('result').textContent = data.result_text;
+                    
+                    // Update time remaining
+                    const timePercent = (data.time_remaining / 3) * 100;
+                    document.getElementById('timeProgress').style.width = timePercent + '%';
+                    document.getElementById('timeRemaining').textContent = Math.round(data.time_remaining);
+                })
+                .catch(error => console.error('Error fetching game state:', error));
+        }
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>
